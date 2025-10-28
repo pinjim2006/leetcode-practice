@@ -1,14 +1,9 @@
 int majorityElement(int* nums, int numsSize) {
-    int candidate=nums[0],count=1;
-    for(int i=1;i<numsSize;i++){
-        if(count==0){
-            candidate=nums[i];
-            count=1;
-        }else if(candidate==nums[i]){
-            count++;
-        }else{
-            count--;
-        }
+    int freq = 0, ans = 0;
+    for(int i = 0; i < numsSize; i++){
+        if(freq == 0) ans = nums[i];
+        if(ans == nums[i]) freq++;
+        else freq--;
     }
-    return candidate;
+    return ans;
 }
