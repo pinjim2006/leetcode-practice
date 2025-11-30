@@ -10,17 +10,17 @@
  * Note: The returned array must be malloced, assume caller calls free().
  */
 
-void inorder(struct TreeNode* ptr, int* returnSize, int* result){
-    if(ptr){
-        inorder(ptr->left, returnSize, result);
-        result[(*returnSize)++] = ptr->val;
-        inorder(ptr->right, returnSize, result);
-    }
+void traversal(struct TreeNode* root, int* result, int* returnSize){
+    if(!root) return;
+    traversal(root->left, result, returnSize);
+    result[(*returnSize)] = root->val;
+    (*returnSize)++;
+    traversal(root->right, result, returnSize);
 }
 
 int* inorderTraversal(struct TreeNode* root, int* returnSize) {
-    int* result = (int*)malloc(sizeof(int)*200);
-    *returnSize = 0;
-    inorder(root, returnSize, result);
+    int* result = (int*)malloc(sizeof(int)*101);
+    (*returnSize) = 0;
+    traversal(root, result, returnSize);
     return result;
 }
