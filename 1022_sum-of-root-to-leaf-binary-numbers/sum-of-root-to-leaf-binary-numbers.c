@@ -6,27 +6,22 @@
  *     struct TreeNode *right;
  * };
  */
-
 bool isLeaf(struct TreeNode* node){
     return !(node->left || node->right);
 }
 
-void traversal(struct TreeNode* root, int current, int* result){
-    if(!root) return;
+void traversal(struct TreeNode* root, int* ans, int cur){
+    cur <<= 1;
+    cur |= root->val;
     if(isLeaf(root)){
-        current <<= 1;
-        current += root->val;
-        (*result) += current;
-        return;
+        (*ans) += cur;
     }
-    current <<= 1;
-    current += root->val;
-    traversal(root->left, current, result);
-    traversal(root->right, current, result);
+    if(root->left) traversal(root->left, ans, cur);
+    if(root->right) traversal(root->right, ans, cur);
 }
 
 int sumRootToLeaf(struct TreeNode* root) {
-    int result = 0;
-    traversal(root, 0, &result);
-    return result;
+    int ans = 0;
+    traversal(root, &ans, 0);
+    return ans;
 }
