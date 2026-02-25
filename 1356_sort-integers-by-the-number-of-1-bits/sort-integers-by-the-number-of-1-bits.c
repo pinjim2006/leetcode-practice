@@ -1,8 +1,17 @@
 /**
  * Note: The returned array must be malloced, assume caller calls free().
  */
+typedef struct{
+    int val;
+    int bit;
+}count;
+
 int cmp(const void* a, const void* b){
-    return *(int*)a - *(int*)b;
+    if(((count*)a)->bit == ((count*)b)->bit){
+        return ((count*)a)->val - ((count*)b)->val;
+    }else{
+        return ((count*)a)->bit - ((count*)b)->bit;
+    }
 }
 
 int countBit(int n){
@@ -15,20 +24,16 @@ int countBit(int n){
 }
 
 int* sortByBits(int* arr, int arrSize, int* returnSize) {
-    qsort(arr, arrSize, sizeof(int), cmp);
+    count counts[arrSize];
+    for(int i = 0; i < arrSize; i++){
+        counts[i].val = arr[i];
+        counts[i].bit = countBit(arr[i]);
+    }
+    qsort(counts, arrSize, sizeof(count), cmp);
     int* result = (int*)malloc(sizeof(int) * arrSize);
     (*returnSize) = arrSize;
-    int loc = 0;
-    int cur = 0;
-    while(loc < arrSize){
-        for(int i = 0; i < arrSize; i++){
-            if(arr[i] < 0) continue;
-            if(countBit(arr[i]) == cur){
-                result[loc++] = arr[i];
-                arr[i] *= -1;
-            }
-        }
-        cur++;
+    for(int i = 0; i < arrSize; i++){
+        result[i] = counts[i].val;
     }
     return result;
 }
