@@ -6,7 +6,7 @@ public:
             if(s[i] == 'i'){
                 reverse(result.begin(), result.end());
             }else{
-                result += s[i];
+                result.push_back(s[i]);
             }
         }
         return result;
