@@ -14,7 +14,7 @@ void rotate(int* nums, int numsSize, int k) {
     for(int i = 0; i < n; i++){
         int last = nums[i];
         int loc = i;
-        for(int i = 0; i < numsSize / n; i++){
+        for(int j = 0; j < numsSize / n; j++){
             loc += k;
             loc %= numsSize;
             int tmp = nums[loc];
