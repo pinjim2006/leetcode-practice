@@ -1,16 +1,17 @@
 int distanceTraveled(int mainTank, int additionalTank){
-    int ans=0;
-    while(mainTank>=5){
-        mainTank-=5;
-        ans+=50;
-        if(additionalTank>=1){
-            mainTank+=1;
-            additionalTank-=1;
+    int ans = 0;
+    while(mainTank >= 5){
+        int tmp = (mainTank / 5);
+        ans += 50 * tmp;
+        mainTank %= 5;
+        if(additionalTank >= tmp){
+            mainTank += tmp;
+            additionalTank -= tmp;
+        }else{
+            mainTank += additionalTank;
+            additionalTank = 0;
         }
     }
-    while(mainTank>0){
-        mainTank-=1;
-        ans+=10;
-    }
+    ans += mainTank * 10;
     return ans;
 }
